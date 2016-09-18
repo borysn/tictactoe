@@ -56,6 +56,27 @@ public class TicTacToeCpuStrategy implements Strategy {
 
     @Override
     public Move generateMove() {
+        // get random move
+        Move move = this.generateRandomMove();
+
+        // create test move set
+        Set<Move> testMoveSet = new LinkedHashSet<>();
+        testMoveSet.addAll(this.moves);
+        testMoveSet.add(move);
+
+        // test against against current move set and logged moves
+        while (this.isCurrentMoveSetTooSimilar(testMoveSet)) {
+            move = this.generateRandomMove();
+            // re-generate test move set
+            testMoveSet = new LinkedHashSet<>();
+            testMoveSet.addAll(this.moves);
+            testMoveSet.add(move);
+        }
+
+        return move;
+    }
+
+    private Move generateRandomMove() {
         // generate random x pos (1-3 inclusive)
         int x = (int)(Math.random() * ((3 - 1) + 1)) + 1;
         // generate random y pos (1-3 inclusive)
@@ -63,6 +84,29 @@ public class TicTacToeCpuStrategy implements Strategy {
 
         Move move = new TicTacToeMove(x, y);
         return move;
+    }
+
+    private boolean isCurrentMoveSetTooSimilar(Set<Move> testMoveSet) {
+        // iterate logged moves
+        for (Set<Move> moves : this.loggedMoves) {
+            // total
+            int size = moves.size();
+            // successful comparison tracker
+            int matchCount = 0;
+
+            // iterate moves
+            for (Move move : moves) {
+                if (testMoveSet.contains(move)) {
+                    matchCount++;
+                }
+            }
+
+            // average close to or over 90%, return true
+            if (matchCount/size >= .9) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

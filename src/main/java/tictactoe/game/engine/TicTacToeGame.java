@@ -80,6 +80,7 @@ public class TicTacToeGame implements Game {
 
         // make move
         this.move(player, move);
+        player.getStrategy().addMoveMade(move);
         this.movesMade.put(move, player);
     }
 
@@ -134,6 +135,9 @@ public class TicTacToeGame implements Game {
 
         // reset game over
         this.isGameOver = false;
+
+        // reset player strategies
+        this.players.forEach(p -> p.getStrategy().reset());
     }
 
     @Override
