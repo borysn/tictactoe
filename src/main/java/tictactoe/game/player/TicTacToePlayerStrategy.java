@@ -8,14 +8,31 @@ import tictactoe.game.engine.TicTacToeMove;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class TicTacToePlayerStrategy implements Strategy {
 
     private final static Logger logger = LoggerFactory.getLogger(TicTacToePlayerStrategy.class);
+    private Set<Move> moves;
+
+    public TicTacToePlayerStrategy() {
+        this.moves = new LinkedHashSet<>();
+    }
 
     @Override
     public Move generateMove() {
         return this.playerMove();
+    }
+
+    @Override
+    public void reset() {
+        this.moves = new LinkedHashSet<>();
+    }
+
+    @Override
+    public void addMoveMade(Move move) {
+        this.moves.add(move);
     }
 
     private Move playerMove() {
