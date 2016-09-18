@@ -1,6 +1,10 @@
-package tictactoe.game.engine;
+package tictactoe.game.player;
 
-public class TicTacToeCpuStrategy implements CpuStrategy {
+import tictactoe.game.engine.Move;
+import tictactoe.game.engine.TicTacToeMove;
+import tictactoe.game.player.Strategy;
+
+public class TicTacToeCpuStrategy implements Strategy {
     @Override
     public Move generateMove() {
         // generate random x pos (1-3 inclusive)
