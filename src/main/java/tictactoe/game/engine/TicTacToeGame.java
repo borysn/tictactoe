@@ -10,6 +10,7 @@ import tictactoe.game.player.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -18,9 +19,9 @@ public class TicTacToeGame implements Game {
     private static final Logger logger = LoggerFactory.getLogger(TicTacToeGame.class);
 
     private Set<Player> players;
+    private Set<Move> movesMade;
     private BufferedReader br;
     private Board gameBoard;
-    private Strategy strategy;
     private boolean isGameOver;
 
     public TicTacToeGame() {
@@ -28,13 +29,13 @@ public class TicTacToeGame implements Game {
         this.isGameOver = false;
         // init players store
         this.players = new LinkedHashSet<>();
+        // init moves store
+        this.movesMade = new HashSet<>();
         // init console input
         this.br = new BufferedReader(new InputStreamReader(System.in));
         // init gameboard
         this.gameBoard = new TicTacToeBoard();
         this.logger.info("Game board initialized");
-        // init cpu strategy
-        this.strategy = new TicTacToeCpuStrategy();
     }
 
 
@@ -74,12 +75,13 @@ public class TicTacToeGame implements Game {
         Move move = player.getStrategy().generateMove();
 
         // make sure move is valid
-        while (!this.gameBoard.isValidMove(move)) {
+        while (!this.gameBoard.isValidMove(move, this.movesMade)) {
             move = player.getStrategy().generateMove();
         }
 
         // make move
         this.move(player, move);
+        this.movesMade.add(move);
     }
 
     @Override
@@ -110,6 +112,7 @@ public class TicTacToeGame implements Game {
     public void processGameState(GameState state, Player player) {
         // if game state shows player is a winner, update score
         if (state.value().equals(TicTacToeGameState.WINNER.value())) {
+            System.out.println("Player: " + player.getName() + " wins!");
             player.updateScore(player.getScore() + 1);
             this.isGameOver = true;
         } else if (state.value().equals(TicTacToeGameState.DRAW.value())) {
@@ -122,8 +125,16 @@ public class TicTacToeGame implements Game {
         // reset game board
         this.gameBoard.resetBoard();
 
+        // reset moves made
+        this.movesMade = new HashSet<>();
+
         // reset game over
         this.isGameOver = false;
+    }
+
+    @Override
+    public Set<Move> getMovesMade() {
+        return this.movesMade;
     }
 
     @Override

@@ -2,7 +2,6 @@ package tictactoe.game.player;
 
 import tictactoe.game.engine.Move;
 import tictactoe.game.engine.TicTacToeMove;
-import tictactoe.game.player.Strategy;
 
 public class TicTacToeCpuStrategy implements Strategy {
     @Override

@@ -4,6 +4,7 @@ import tictactoe.game.engine.Move;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 public class TicTacToeBoard implements Board {
@@ -166,19 +167,19 @@ public class TicTacToeBoard implements Board {
     }
 
     @Override
-    public boolean isValidMove(Move move) {
+    public boolean isValidMove(Move move, Set<Move> movesMade) {
+        // check if move is already made
+        if (movesMade.contains(move)) {
+            System.out.println("\n[Error] This position has been filled\n");
+            return false;
+        }
+
         // x value must be between 1 and game board x size (inclusive)
         if (move.getX()-1 >= 0 && move.getX()-1 < this.boardSizeX) {
             // y value must be between 1 and game board y size (inclusive)
             if (move.getY()-1 >= 0 && move.getY()-1 < this.boardSizeY) {
-                // check position does not have value
-                String posValue = this.gameBoard.get(move.getX()-1).get(move.getY()-1).getValue();
-                if (posValue.equals(TicTacToePointValue.EMPTY.value())) {
-                    // this move is valid
-                    return true;
-                } else {
-                    System.out.println("\n[Error] This position has been filled\n");
-                }
+                // this move is valid
+                return true;
             } else {
                 System.out.println("\n[Error] Invalid y position\n");
             }
