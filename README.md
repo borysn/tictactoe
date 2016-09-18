@@ -8,7 +8,7 @@ A console based TicTacToe game built using Java
 
 ## build and run
 
-`$ ./gradlew clean build run`
+`$ ./gradlew clean build run -q`
 
 ## license
 
