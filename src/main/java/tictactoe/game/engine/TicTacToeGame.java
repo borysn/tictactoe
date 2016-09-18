@@ -146,7 +146,7 @@ public class TicTacToeGame implements Game {
         Move move = new TicTacToeMove(x, y);
 
         try {
-            System.out.print("Enter comma move (comma separated): ");
+            System.out.print("Enter move (comma separated): ");
             String input = br.readLine();
             move = parseMove(input);
 
