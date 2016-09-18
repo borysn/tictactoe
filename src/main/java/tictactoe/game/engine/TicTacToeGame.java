@@ -10,19 +10,18 @@ import tictactoe.game.player.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class TicTacToeGame implements Game {
 
     private static final Logger logger = LoggerFactory.getLogger(TicTacToeGame.class);
 
     private Set<Player> players;
-    private Set<Move> movesMade;
-    private BufferedReader br;
+    private Map<Move, Player> movesMade;
     private Board gameBoard;
     private boolean isGameOver;
+    private MoveLogger cpuMoveLogger;
 
     public TicTacToeGame() {
         // game over
@@ -30,9 +29,9 @@ public class TicTacToeGame implements Game {
         // init players store
         this.players = new LinkedHashSet<>();
         // init moves store
-        this.movesMade = new HashSet<>();
-        // init console input
-        this.br = new BufferedReader(new InputStreamReader(System.in));
+        this.movesMade = new HashMap<>();
+        // init moves logger for cpu
+        this.cpuMoveLogger = new CpuMoveLogger();
         // init gameboard
         this.gameBoard = new TicTacToeBoard();
         this.logger.info("Game board initialized");
@@ -75,13 +74,13 @@ public class TicTacToeGame implements Game {
         Move move = player.getStrategy().generateMove();
 
         // make sure move is valid
-        while (!this.gameBoard.isValidMove(move, this.movesMade)) {
+        while (!this.gameBoard.isValidMove(move, this.movesMade.keySet())) {
             move = player.getStrategy().generateMove();
         }
 
         // make move
         this.move(player, move);
-        this.movesMade.add(move);
+        this.movesMade.put(move, player);
     }
 
     @Override
@@ -115,8 +114,13 @@ public class TicTacToeGame implements Game {
             System.out.println("Player: " + player.getName() + " wins!");
             player.updateScore(player.getScore() + 1);
             this.isGameOver = true;
+            // if cpu player lost
+            if (!player.getName().equals(this.getCpuPlayer().getName())) {
+                this.logCpuMoves();
+            }
         } else if (state.value().equals(TicTacToeGameState.DRAW.value())) {
             this.isGameOver = true;
+            this.logCpuMoves();
         }
     }
 
@@ -126,14 +130,14 @@ public class TicTacToeGame implements Game {
         this.gameBoard.resetBoard();
 
         // reset moves made
-        this.movesMade = new HashSet<>();
+        this.movesMade = new HashMap<>();
 
         // reset game over
         this.isGameOver = false;
     }
 
     @Override
-    public Set<Move> getMovesMade() {
+    public Map<Move, Player> getMovesMade() {
         return this.movesMade;
     }
 
@@ -151,6 +155,24 @@ public class TicTacToeGame implements Game {
         return TicTacToeGameState.NOWINNER;
     }
 
+    private void logCpuMoves() {
+        // get moves made by cpu
+        Set<Map.Entry<Move, Player>> entries = this.movesMade.entrySet().stream().filter(
+                e -> e.getValue().getName().equals(this.getCpuPlayer().getName())
+        ).collect(Collectors.toSet());
+
+        // moves
+        Set<Move> moves = new LinkedHashSet<>();
+
+        // add moves to set
+        entries.forEach(e ->
+            moves.add(e.getKey())
+        );
+
+        // log moves
+        this.cpuMoveLogger.logMoves(moves);
+    }
+
     private void move(Player player, Move move) {
         // log
         this.logger.info("Player: " + player.getName() + " made move (" + move.getX() + ", " + move.getY() + ")");
@@ -159,14 +181,21 @@ public class TicTacToeGame implements Game {
         this.gameBoard.setPointValue(player.getPointValue(), move);
     }
 
+    private Player getCpuPlayer() {
+        return this.players.iterator().next();
+    }
+
     private String getPlayerNameFromUser() {
         // read player name in from console
         System.out.println();
         System.out.print("Enter player name: ");
         String playerName = new String();
 
+        // init console input
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
         try {
-            playerName = this.br.readLine();
+            playerName = br.readLine();
             System.out.println();
         } catch (IOException e) {
             this.logger.error(e.getMessage());

@@ -3,6 +3,7 @@ package tictactoe.game.player;
 import tictactoe.game.engine.Move;
 import tictactoe.game.engine.TicTacToeMove;
 
+
 public class TicTacToeCpuStrategy implements Strategy {
     @Override
     public Move generateMove() {
@@ -11,6 +12,7 @@ public class TicTacToeCpuStrategy implements Strategy {
         // generate random y pos (1-3 inclusive)
         int y = (int)(Math.random() * ((3 - 1) + 1)) + 1;
 
-        return new TicTacToeMove(x, y);
+        Move move = new TicTacToeMove(x, y);
+        return move;
     }
 }

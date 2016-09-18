@@ -28,14 +28,13 @@ public class TicTacToePlayerStrategy implements Strategy {
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             String input = br.readLine();
             move = parseMove(input);
-
         } catch (IOException e) {
             logger.error(e.getMessage());
             logger.info("Player selected invalid move");
-        } finally {
-            // return
-            return move;
         }
+
+        // return
+        return move;
     }
 
     private Move parseMove(String move) {

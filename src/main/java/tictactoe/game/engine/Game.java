@@ -2,6 +2,7 @@ package tictactoe.game.engine;
 
 import tictactoe.game.player.Player;
 
+import java.util.Map;
 import java.util.Set;
 
 public interface Game {
@@ -12,6 +13,6 @@ public interface Game {
     void continueGame();
     void processGameState(GameState state, Player player);
     void reset();
-    Set<Move> getMovesMade();
+    Map<Move, Player> getMovesMade();
     GameState checkGameState();
 }
