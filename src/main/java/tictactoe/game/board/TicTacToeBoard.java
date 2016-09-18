@@ -46,7 +46,7 @@ public class TicTacToeBoard implements Board {
 
     @Override
     public void setPointValue(PointValue value, Move move) {
-        this.gameBoard.get(move.getX()-1).get(move.getY()-1).setValue(value.value());
+        this.gameBoard.get(move.getY()-1).get(move.getX()-1).setValue(value.value());
     }
 
     @Override
