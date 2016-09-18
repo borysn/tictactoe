@@ -125,10 +125,8 @@ public class TicTacToeBoard implements Board {
 
         // diagonal 3,1 to 1,3
         for (int i = this.getXSize()-1; i >= 0; i--) {
-            for (int j = 0; j < this.getYSize(); j++) {
-                TicTacToePoint point = this.gameBoard.get(i).get(j);
-                diagonal2.add(point);
-            }
+            TicTacToePoint point = this.gameBoard.get(i).get((this.getYSize()-1) - i);
+            diagonal2.add(point);
         }
         // check for win
         if (this.hasWin(diagonal2)) {

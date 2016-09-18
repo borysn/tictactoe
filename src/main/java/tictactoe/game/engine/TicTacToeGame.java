@@ -108,6 +108,9 @@ public class TicTacToeGame implements Game {
             // player moves second
             this.playerMove();
         }
+        // print final game status
+        this.printGameStatus();
+
         // reset game board
         this.gameBoard.resetBoard();
     }
