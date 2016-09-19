@@ -59,25 +59,25 @@ public class TicTacToeCpuStrategy implements Strategy {
 
     @Override
     public Move generateMove(List<TicTacToePoint> gameBoardPoints) {
-        // get random move
-        Move move = this.generateRandomMove(gameBoardPoints);
-
-        // create test move set
-        Set<Move> testMoveSet = new LinkedHashSet<>();
-        testMoveSet.addAll(this.moves);
-        testMoveSet.add(move);
-
         // get empty points
         List<TicTacToePoint> emptyPoints = new ArrayList<>();
         emptyPoints.addAll(gameBoardPoints.stream()
                 .filter(point -> point.getValue().equals(TicTacToePointValue.EMPTY.value()))
                 .collect(Collectors.toList()));
 
+        // get random move
+        Move move = this.generateRandomMove(emptyPoints);
+
         // if emptypoints size is > 1
         if (emptyPoints.size() > 1) {
+            // create test move set
+            Set<Move> testMoveSet = new LinkedHashSet<>();
+            testMoveSet.addAll(this.moves);
+            testMoveSet.add(move);
+
             // test against current move set and logged moves
             while (!this.moves.contains(move) && this.isCurrentMoveSetTooSimilar(testMoveSet)) {
-                move = this.generateRandomMove(gameBoardPoints);
+                move = this.generateRandomMove(emptyPoints);
                 // re-generate test move set
                 testMoveSet = new LinkedHashSet<>();
                 testMoveSet.addAll(this.moves);
