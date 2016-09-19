@@ -28,7 +28,7 @@ public class TicTacToeBoard implements Board {
             // new game board row
             List<TicTacToePoint> row = new ArrayList<>();
             for (int j = 0; j < y; j++) {
-                TicTacToePoint point = new TicTacToePoint(i, j);
+                TicTacToePoint point = new TicTacToePoint(j, i);
                 row.add(point);
             }
             gameBoard.add(row);
@@ -154,6 +154,16 @@ public class TicTacToeBoard implements Board {
             }
         }
         return true;
+    }
+
+    @Override
+    public List<TicTacToePoint> getBoardPointList() {
+        // init return
+        List<TicTacToePoint> boardPointList = new ArrayList<>();
+        // add points to list
+        this.gameBoard.stream().forEach(list -> boardPointList.addAll(list));
+
+        return boardPointList;
     }
 
     @Override

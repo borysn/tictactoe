@@ -2,6 +2,7 @@ package tictactoe.game.player;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tictactoe.game.board.TicTacToePoint;
 import tictactoe.game.engine.Move;
 import tictactoe.game.engine.TicTacToeMove;
 
@@ -9,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 public class TicTacToePlayerStrategy implements Strategy {
@@ -21,7 +23,7 @@ public class TicTacToePlayerStrategy implements Strategy {
     }
 
     @Override
-    public Move generateMove() {
+    public Move generateMove(List<TicTacToePoint> gameBoardPoints) {
         return this.playerMove();
     }
 

@@ -2,6 +2,7 @@ package tictactoe.game.board;
 
 import tictactoe.game.engine.Move;
 
+import java.util.List;
 import java.util.Set;
 
 public interface Board {
@@ -14,4 +15,5 @@ public interface Board {
     boolean isValidMove(Move move, Set<Move> movesMade);
     boolean hasWinningMove();
     boolean hasDraw();
+    List<TicTacToePoint> getBoardPointList();
 }

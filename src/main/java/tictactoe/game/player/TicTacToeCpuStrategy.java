@@ -2,6 +2,8 @@ package tictactoe.game.player;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tictactoe.game.board.TicTacToePoint;
+import tictactoe.game.board.TicTacToePointValue;
 import tictactoe.game.engine.Move;
 import tictactoe.game.engine.TicTacToeMove;
 
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 public class TicTacToeCpuStrategy implements Strategy {
@@ -55,34 +58,45 @@ public class TicTacToeCpuStrategy implements Strategy {
     }
 
     @Override
-    public Move generateMove() {
+    public Move generateMove(List<TicTacToePoint> gameBoardPoints) {
         // get random move
-        Move move = this.generateRandomMove();
+        Move move = this.generateRandomMove(gameBoardPoints);
 
         // create test move set
         Set<Move> testMoveSet = new LinkedHashSet<>();
         testMoveSet.addAll(this.moves);
         testMoveSet.add(move);
 
-        // test against against current move set and logged moves
-        while (this.isCurrentMoveSetTooSimilar(testMoveSet)) {
-            move = this.generateRandomMove();
-            // re-generate test move set
-            testMoveSet = new LinkedHashSet<>();
-            testMoveSet.addAll(this.moves);
-            testMoveSet.add(move);
+        // get empty points
+        List<TicTacToePoint> emptyPoints = new ArrayList<>();
+        emptyPoints.addAll(gameBoardPoints.stream()
+                .filter(point -> point.getValue().equals(TicTacToePointValue.EMPTY.value()))
+                .collect(Collectors.toList()));
+
+        // if emptypoints size is > 1
+        if (emptyPoints.size() > 1) {
+            // test against current move set and logged moves
+            while (!this.moves.contains(move) && this.isCurrentMoveSetTooSimilar(testMoveSet)) {
+                move = this.generateRandomMove(gameBoardPoints);
+                // re-generate test move set
+                testMoveSet = new LinkedHashSet<>();
+                testMoveSet.addAll(this.moves);
+                testMoveSet.add(move);
+            }
         }
 
         return move;
     }
 
-    private Move generateRandomMove() {
-        // generate random x pos (1-3 inclusive)
-        int x = (int)(Math.random() * ((3 - 1) + 1)) + 1;
-        // generate random y pos (1-3 inclusive)
-        int y = (int)(Math.random() * ((3 - 1) + 1)) + 1;
+    private Move generateRandomMove(List<TicTacToePoint> emptyPoints) {
 
-        Move move = new TicTacToeMove(x, y);
+        // pick one empty point at random
+        int total = emptyPoints.size();
+        // chose random number between 0-total
+        int random = (int)(Math.random() * total);
+        TicTacToePoint point = emptyPoints.get(random);
+
+        Move move = new TicTacToeMove(point.getXPos()+1, point.getYPos()+1);
         return move;
     }
 

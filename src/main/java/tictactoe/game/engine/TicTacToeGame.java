@@ -71,11 +71,11 @@ public class TicTacToeGame implements Game {
     @Override
     public void makeMove(Player player) {
         // get player
-        Move move = player.getStrategy().generateMove();
+        Move move = player.getStrategy().generateMove(this.gameBoard.getBoardPointList());
 
         // make sure move is valid
         while (!this.gameBoard.isValidMove(move, this.movesMade.keySet())) {
-            move = player.getStrategy().generateMove();
+            move = player.getStrategy().generateMove(this.gameBoard.getBoardPointList());
         }
 
         // make move
