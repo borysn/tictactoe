@@ -89,15 +89,13 @@ public class TicTacToeCpuStrategy implements Strategy {
     }
 
     private Move generateRandomMove(List<TicTacToePoint> emptyPoints) {
-
         // pick one empty point at random
         int total = emptyPoints.size();
         // chose random number between 0-total
         int random = (int)(Math.random() * total);
         TicTacToePoint point = emptyPoints.get(random);
 
-        Move move = new TicTacToeMove(point.getXPos()+1, point.getYPos()+1);
-        return move;
+        return new TicTacToeMove(point.getXPos()+1, point.getYPos()+1);
     }
 
     private boolean isCurrentMoveSetTooSimilar(Set<Move> testMoveSet) {

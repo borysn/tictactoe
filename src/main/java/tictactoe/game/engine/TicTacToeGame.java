@@ -161,17 +161,15 @@ public class TicTacToeGame implements Game {
 
     private void logCpuMoves() {
         // get moves made by cpu
-        Set<Map.Entry<Move, Player>> entries = this.movesMade.entrySet().stream().filter(
-                e -> e.getValue().getName().equals(this.getCpuPlayer().getName())
-        ).collect(Collectors.toSet());
+        Set<Map.Entry<Move, Player>> entries = this.movesMade.entrySet().stream()
+                .filter(e -> e.getValue().getName().equals(this.getCpuPlayer().getName()))
+                .collect(Collectors.toSet());
 
         // moves
         Set<Move> moves = new LinkedHashSet<>();
 
         // add moves to set
-        entries.forEach(e ->
-            moves.add(e.getKey())
-        );
+        entries.forEach(e -> moves.add(e.getKey()));
 
         // log moves
         this.cpuMoveLogger.logMoves(moves);
