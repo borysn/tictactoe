@@ -35,7 +35,6 @@ public class TicTacToePlayerTest {
 
     @Test
     public void testScore() {
-        Assert.assertEquals("Player initial score", 0, TicTacToePlayerTest.player.getScore());
         // update score
         TicTacToePlayerTest.player.updateScore(2);
         Assert.assertEquals("Player update score", 2, TicTacToePlayerTest.player.getScore());
