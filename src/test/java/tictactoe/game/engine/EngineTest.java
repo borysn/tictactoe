@@ -1,10 +1,8 @@
-package engine;
+package tictactoe.game.engine;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import tictactoe.game.engine.Engine;
-import tictactoe.game.engine.TicTacToeEngine;
 
 public class EngineTest {
 

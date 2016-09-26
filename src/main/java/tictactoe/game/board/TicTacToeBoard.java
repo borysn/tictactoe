@@ -20,12 +20,12 @@ public class TicTacToeBoard implements Board {
 
     @Override
     public void initBoard(int x, int y) {
-        // set board size
+        // set tictactoe.game.board size
         this.boardSizeX = x;
         this.boardSizeY = y;
 
         for (int i = 0; i < x; i++) {
-            // new game board row
+            // new game tictactoe.game.board row
             List<TicTacToePoint> row = new ArrayList<>();
             for (int j = 0; j < y; j++) {
                 TicTacToePoint point = new TicTacToePoint(j, i);
@@ -57,7 +57,7 @@ public class TicTacToeBoard implements Board {
         // print user y pos display
         System.out.println("   1  2  3");
 
-        // print rest of game board
+        // print rest of game tictactoe.game.board
         for (int i = 0; i < gameBoard.size(); i++) {
             List<TicTacToePoint> row = gameBoard.get(i);
 
@@ -184,9 +184,9 @@ public class TicTacToeBoard implements Board {
             return false;
         }
 
-        // x value must be between 1 and game board x size (inclusive)
+        // x value must be between 1 and game tictactoe.game.board x size (inclusive)
         if (move.getX()-1 >= 0 && move.getX()-1 < this.boardSizeX) {
-            // y value must be between 1 and game board y size (inclusive)
+            // y value must be between 1 and game tictactoe.game.board y size (inclusive)
             if (move.getY()-1 >= 0 && move.getY()-1 < this.boardSizeY) {
                 // this move is valid
                 return true;

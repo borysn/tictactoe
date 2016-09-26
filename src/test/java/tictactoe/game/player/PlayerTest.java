@@ -1,12 +1,9 @@
-package player;
+package tictactoe.game.player;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import tictactoe.game.board.TicTacToePointValue;
-import tictactoe.game.player.Player;
-import tictactoe.game.player.TicTacToeCpuStrategy;
-import tictactoe.game.player.TicTacToePlayer;
 
 public class PlayerTest {
 

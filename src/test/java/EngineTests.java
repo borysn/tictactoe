@@ -1,4 +1,4 @@
-import engine.EngineTest;
+import tictactoe.game.engine.EngineTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 

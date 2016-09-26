@@ -1,10 +1,8 @@
-package board;
+package tictactoe.game.board;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import tictactoe.game.board.Board;
-import tictactoe.game.board.TicTacToeBoard;
 
 public class BoardTest {
 

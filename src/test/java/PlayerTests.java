@@ -1,9 +1,9 @@
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import player.PlayerTest;
-import player.StrategyTest;
-import player.TicTacToePlayerStrategyTest;
-import player.TicTacToePlayerTest;
+import tictactoe.game.player.PlayerTest;
+import tictactoe.game.player.StrategyTest;
+import tictactoe.game.player.TicTacToePlayerStrategyTest;
+import tictactoe.game.player.TicTacToePlayerTest;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({

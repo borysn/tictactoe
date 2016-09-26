@@ -34,23 +34,23 @@ public class TicTacToeGame implements Game {
         this.cpuMoveLogger = new CpuMoveLogger();
         // init gameboard
         this.gameBoard = new TicTacToeBoard();
-        this.logger.info("Game board initialized");
+        this.logger.info("Game tictactoe.game.board initialized");
     }
 
 
     @Override
     public void startGame() {
-        this.logger.info("Starting TicTacToe game engine");
+        this.logger.info("Starting TicTacToe game tictactoe.game.engine");
         this.initGame();
     }
 
     @Override
     public void initGame() {
-        // set cpu player
+        // set cpu tictactoe.game.player
         this.initCpuPlayer();
-        // get player name
+        // get tictactoe.game.player name
         String playerName = this.getPlayerNameFromUser();
-        // set player
+        // set tictactoe.game.player
         this.players.add(new TicTacToePlayer(playerName, TicTacToePointValue.O, new TicTacToePlayerStrategy()));
     }
 
@@ -60,17 +60,17 @@ public class TicTacToeGame implements Game {
         // print separator
         System.out.println("--------------------------");
 
-        // print player names and score
+        // print tictactoe.game.player names and score
         for (Player player : this.players) {
             System.out.println("Player: " + player.getName() + "\n\tScore: " + player.getScore());
         }
-        // print game board
+        // print game tictactoe.game.board
         this.gameBoard.printBoard();
     }
 
     @Override
     public void makeMove(Player player) {
-        // get player
+        // get tictactoe.game.player
         Move move = player.getStrategy().generateMove(this.gameBoard.getBoardPointList());
 
         // make sure move is valid
@@ -88,11 +88,11 @@ public class TicTacToeGame implements Game {
     public void continueGame() {
         // loop until game is over
         while(!this.isGameOver) {
-            // each player makes their move
+            // each tictactoe.game.player makes their move
             for (Player player : this.players) {
                 // print game status
                 this.printGameStatus();
-                // make player move
+                // make tictactoe.game.player move
                 this.makeMove(player);
                 // check game state
                 this.processGameState(this.checkGameState(), player);
@@ -110,12 +110,12 @@ public class TicTacToeGame implements Game {
 
     @Override
     public void processGameState(GameState state, Player player) {
-        // if game state shows player is a winner, update score
+        // if game state shows tictactoe.game.player is a winner, update score
         if (state.value().equals(TicTacToeGameState.WINNER.value())) {
             System.out.println("Player: " + player.getName() + " wins!");
             player.updateScore(player.getScore() + 1);
             this.isGameOver = true;
-            // if cpu player lost
+            // if cpu tictactoe.game.player lost
             if (!player.getName().equals(this.getCpuPlayer().getName())) {
                 this.logCpuMoves();
             }
@@ -127,7 +127,7 @@ public class TicTacToeGame implements Game {
 
     @Override
     public void reset() {
-        // reset game board
+        // reset game tictactoe.game.board
         this.gameBoard.resetBoard();
 
         // reset moves made
@@ -136,7 +136,7 @@ public class TicTacToeGame implements Game {
         // reset game over
         this.isGameOver = false;
 
-        // reset player strategies
+        // reset tictactoe.game.player strategies
         this.players.forEach(p -> p.getStrategy().reset());
     }
 
@@ -149,7 +149,7 @@ public class TicTacToeGame implements Game {
     public GameState checkGameState() {
         // check for win or draw
         if (this.gameBoard.hasWinningMove()) {
-            System.out.println("This game has ended with a winning player.");
+            System.out.println("This game has ended with a winning tictactoe.game.player.");
             return TicTacToeGameState.WINNER;
         } else if (this.gameBoard.hasDraw()) {
             System.out.println("This game has ended with a draw.");
@@ -179,7 +179,7 @@ public class TicTacToeGame implements Game {
         // log
         this.logger.info("Player: " + player.getName() + " made move (" + move.getX() + ", " + move.getY() + ")");
 
-        // set game board value
+        // set game tictactoe.game.board value
         this.gameBoard.setPointValue(player.getPointValue(), move);
     }
 
@@ -188,9 +188,9 @@ public class TicTacToeGame implements Game {
     }
 
     protected String getPlayerNameFromUser() {
-        // read player name in from console
+        // read tictactoe.game.player name in from console
         System.out.println();
-        System.out.print("Enter player name: ");
+        System.out.print("Enter tictactoe.game.player name: ");
         String playerName = new String();
 
         // init console input
@@ -201,9 +201,9 @@ public class TicTacToeGame implements Game {
             System.out.println();
         } catch (IOException e) {
             this.logger.error(e.getMessage());
-            this.logger.error("Could not set player name");
+            this.logger.error("Could not set tictactoe.game.player name");
         } finally {
-            this.logger.info("Human player initialized");
+            this.logger.info("Human tictactoe.game.player initialized");
             this.logger.info("Playername: " + playerName);
             return playerName;
         }
@@ -213,6 +213,6 @@ public class TicTacToeGame implements Game {
         Player player = new TicTacToePlayer("CPU", TicTacToePointValue.X, new TicTacToeCpuStrategy());
         this.players.add(player);
         System.out.println();
-        this.logger.info("CPU player initialized");
+        this.logger.info("CPU tictactoe.game.player initialized");
     }
 }
