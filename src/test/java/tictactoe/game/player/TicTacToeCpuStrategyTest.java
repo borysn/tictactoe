@@ -2,12 +2,14 @@ package tictactoe.game.player;
 
 import org.junit.Assert;
 import org.junit.Test;
+import tictactoe.game.board.TicTacToeBoard;
 import tictactoe.game.board.TicTacToePoint;
 import tictactoe.game.engine.Move;
 import tictactoe.game.engine.TicTacToeMove;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -30,24 +32,22 @@ public class TicTacToeCpuStrategyTest {
     @Test
     public void testGenerateRandomMove() {
         // init empty points
-        Set<TicTacToePoint> emptyPoints = new LinkedHashSet<>();
-        emptyPoints.add(new TicTacToePoint(0,0));
-        emptyPoints.add(new TicTacToePoint(0,1));
-        emptyPoints.add(new TicTacToePoint(0,2));
-        emptyPoints.add(new TicTacToePoint(1,0));
-        emptyPoints.add(new TicTacToePoint(1,1));
-        emptyPoints.add(new TicTacToePoint(1,2));
-        emptyPoints.add(new TicTacToePoint(2,0));
-        emptyPoints.add(new TicTacToePoint(2,1));
-        emptyPoints.add(new TicTacToePoint(2,2));
+        TicTacToeBoard board = new TicTacToeBoard();
+        List<TicTacToePoint> emptyPoints = board.getBoardPointList();
 
-        // generate move
-        Move move = strategyMock.generateRandomMove(emptyPoints.stream().collect(Collectors.toList()));
-        // to tictactoe gameboard point
-        TicTacToePoint point = new TicTacToePoint(move.getX()-1, move.getY()-1);
+        // total of 9 moves
+        for (int i = 0; i < 9; i++) {
+            // generate move
+            Move move = strategyMock.generateRandomMove(emptyPoints.stream().collect(Collectors.toList()));
+            // to tictactoe gameboard point
+            TicTacToePoint point = new TicTacToePoint(move.getX() - 1, move.getY() - 1);
 
-        // move should be contained in empty points set
-        Assert.assertTrue("Generated move exists in empty points set", emptyPoints.contains(point));
+            // move should be contained in empty points set
+            Assert.assertTrue("Generated move exists in empty points set", emptyPoints.contains(point));
+
+            // remove point from set
+            emptyPoints.remove(point);
+        }
     }
 
 }
