@@ -1,7 +1,5 @@
 package tictactoe.game.board;
 
-import java.util.Objects;
-
 public class TicTacToePoint implements BoardPoint {
     private String value;
     private int xPos;
