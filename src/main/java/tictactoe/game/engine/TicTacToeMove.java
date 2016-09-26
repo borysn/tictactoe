@@ -13,15 +13,23 @@ public class TicTacToeMove implements Move {
 
     @Override
     public int hashCode() {
-        return this.x - this.y;
+        int result = 1;
+        result = 31 * result + this.x;
+        result = 31 * result + this.y;
+        return 31 * result;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof TicTacToeMove) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o != null && o instanceof TicTacToeMove) {
             TicTacToeMove move = (TicTacToeMove) o;
             return this.x == move.getX() && this.y == move.getY();
         }
+
         return false;
     }
 
