@@ -81,7 +81,7 @@ public class TicTacToeBoard implements Board {
         return (this.checkRows() || this.checkColumns() || this.checkDiagonals()) == true ? true : false;
     }
 
-    private boolean checkRows() {
+    protected boolean checkRows() {
         for (List<TicTacToePoint> row : gameBoard) {
             if (this.hasWin(row)) {
                 return true;
@@ -91,7 +91,7 @@ public class TicTacToeBoard implements Board {
         return false;
     }
 
-    private boolean checkColumns() {
+    protected boolean checkColumns() {
         for (int i = 0; i < this.getXSize(); i++) {
             // init column array
             List<TicTacToePoint> column = new ArrayList<>();
@@ -109,7 +109,7 @@ public class TicTacToeBoard implements Board {
         return false;
     }
 
-    private boolean checkDiagonals() {
+    protected boolean checkDiagonals() {
         // init list
         List<TicTacToePoint> diagonal1 = new ArrayList<>();
         List<TicTacToePoint> diagonal2 = new ArrayList<>();
@@ -129,7 +129,7 @@ public class TicTacToeBoard implements Board {
         return false;
     }
 
-    private boolean hasWin(List<TicTacToePoint> list) {
+    protected boolean hasWin(List<TicTacToePoint> list) {
         Predicate<TicTacToePoint> pX = p -> p.getValue().equals(TicTacToePointValue.X.value());
         Predicate<TicTacToePoint> pO = p -> p.getValue().equals(TicTacToePointValue.O.value());
 

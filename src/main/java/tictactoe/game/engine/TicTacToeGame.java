@@ -159,7 +159,7 @@ public class TicTacToeGame implements Game {
         return TicTacToeGameState.NOWINNER;
     }
 
-    private void logCpuMoves() {
+    protected void logCpuMoves() {
         // get moves made by cpu
         Set<Map.Entry<Move, Player>> entries = this.movesMade.entrySet().stream()
                 .filter(e -> e.getValue().getName().equals(this.getCpuPlayer().getName()))
@@ -175,7 +175,7 @@ public class TicTacToeGame implements Game {
         this.cpuMoveLogger.logMoves(moves);
     }
 
-    private void move(Player player, Move move) {
+    protected void move(Player player, Move move) {
         // log
         this.logger.info("Player: " + player.getName() + " made move (" + move.getX() + ", " + move.getY() + ")");
 
@@ -183,11 +183,11 @@ public class TicTacToeGame implements Game {
         this.gameBoard.setPointValue(player.getPointValue(), move);
     }
 
-    private Player getCpuPlayer() {
+    protected Player getCpuPlayer() {
         return this.players.iterator().next();
     }
 
-    private String getPlayerNameFromUser() {
+    protected String getPlayerNameFromUser() {
         // read player name in from console
         System.out.println();
         System.out.print("Enter player name: ");
@@ -209,7 +209,7 @@ public class TicTacToeGame implements Game {
         }
     }
 
-    private void initCpuPlayer() {
+    protected void initCpuPlayer() {
         Player player = new TicTacToePlayer("CPU", TicTacToePointValue.X, new TicTacToeCpuStrategy());
         this.players.add(player);
         System.out.println();

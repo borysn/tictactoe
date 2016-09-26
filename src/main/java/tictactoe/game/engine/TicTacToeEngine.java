@@ -30,7 +30,7 @@ public class TicTacToeEngine implements Engine {
         }
     }
 
-    private boolean keepPlaying() {
+    protected boolean keepPlaying() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String input = new String();
         boolean invalidInput = true;

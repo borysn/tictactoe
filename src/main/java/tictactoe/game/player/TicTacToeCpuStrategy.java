@@ -30,7 +30,7 @@ public class TicTacToeCpuStrategy implements Strategy {
         this.getLoggedMoves();
     }
 
-    private void getLoggedMoves() {
+    protected void getLoggedMoves() {
         File logFile = new File(System.getProperty("user.dir") + "/data/cpumoves.log");
         try {
             FileReader fr = new FileReader(logFile.getAbsolutePath());
@@ -88,7 +88,7 @@ public class TicTacToeCpuStrategy implements Strategy {
         return move;
     }
 
-    private Move generateRandomMove(List<TicTacToePoint> emptyPoints) {
+    protected Move generateRandomMove(List<TicTacToePoint> emptyPoints) {
         // pick one empty point at random
         int total = emptyPoints.size();
         // chose random number between 0-total
@@ -98,7 +98,7 @@ public class TicTacToeCpuStrategy implements Strategy {
         return new TicTacToeMove(point.getXPos()+1, point.getYPos()+1);
     }
 
-    private boolean isCurrentMoveSetTooSimilar(Set<Move> testMoveSet) {
+    protected boolean isCurrentMoveSetTooSimilar(Set<Move> testMoveSet) {
         // iterate logged moves
         for (Set<Move> moves : this.loggedMoves) {
             // total

@@ -37,7 +37,7 @@ public class TicTacToePlayerStrategy implements Strategy {
         this.moves.add(move);
     }
 
-    private Move playerMove() {
+    protected Move playerMove() {
         // init return
         Move move = new TicTacToeMove(3, 3);
 
@@ -56,7 +56,7 @@ public class TicTacToePlayerStrategy implements Strategy {
         return move;
     }
 
-    private Move parseMove(String move) {
+    protected Move parseMove(String move) {
         try {
             int x = Integer.parseInt(move.split(",")[0].trim());
             int y = Integer.parseInt(move.split(",")[1].trim());
